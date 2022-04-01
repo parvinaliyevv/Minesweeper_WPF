@@ -20,7 +20,6 @@ namespace Minesweeper.ViewModels
         public int FontSize { get; set; }
 
         public ObservableCollection<MatrixCell> Matrix { get; set; }
-        public List<int> MineCellCordinates { get; set; }
 
         public int Rows
         {
@@ -79,7 +78,6 @@ namespace Minesweeper.ViewModels
             View = owner;
 
             Matrix = new ObservableCollection<MatrixCell>();
-            MineCellCordinates = new List<int>();
 
             GameTime = new GameTimer();
             BestTime = new GameTimer();
@@ -166,7 +164,6 @@ namespace Minesweeper.ViewModels
             GameTime.StopTimer();
 
             Matrix.Clear();
-            MineCellCordinates.Clear();
 
             FillMatrix();
         }
@@ -212,12 +209,15 @@ namespace Minesweeper.ViewModels
             {
                 if (Matrix[index].Mode == MatrixCellMode.BombCell)
                 {
-                    var source = ImageService.GetImageFromThisPath(@"\Assets\Images\Mine.png");
+                    var mineImage = ImageService.GetImageFromThisPath(@"\Assets\Images\Mine.png");
+                    var invalidImage = ImageService.GetImageFromThisPath(@"\Assets\Images\Invalid.png");
 
-                    foreach (var item in MineCellCordinates)
+                    foreach (var item in Matrix)
                     {
-                        Matrix[item].Content = new Image() { Source = source };
-                        Matrix[item].IsEnable = false;
+                        if (item.Mode == MatrixCellMode.BombCell) item.Content = new Image() { Source = mineImage };
+                        else if (item.Mode == MatrixCellMode.EmptyCell && item.HasFlag) item.Content = new Image() { Source = invalidImage };
+
+                        item.IsEnable = false;
                     }
 
                     if (!SoundOff) SoundService.PlaySoundFromThisPath(@"\Assets\Sounds\Explode.wav");
@@ -328,11 +328,7 @@ namespace Minesweeper.ViewModels
 
                 if (result < 0 || result >= Rows * Columns) i--;
                 else if (exceptions.Contains(result) || result >= mainExcept - Columns && result <= mainExcept + Columns || Matrix[result].Mode == MatrixCellMode.BombCell) i--;
-                else
-                {
-                    Matrix[result].Mode = MatrixCellMode.BombCell;
-                    MineCellCordinates.Add(result);
-                }
+                else Matrix[result].Mode = MatrixCellMode.BombCell;
             }
 
             // Calculate mine count
