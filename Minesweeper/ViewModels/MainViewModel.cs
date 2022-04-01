@@ -8,6 +8,7 @@ using MaterialDesignThemes.Wpf;
 using Minesweeper.Models;
 using Minesweeper.Services;
 using Minesweeper.Commands;
+using Minesweeper.Views;
 
 namespace Minesweeper.ViewModels
 {
@@ -45,22 +46,21 @@ namespace Minesweeper.ViewModels
         public static readonly DependencyProperty FlagCountProperty =
             DependencyProperty.Register("FlagCount", typeof(int), typeof(MainViewModel));
 
-        public bool GameOver
-        {
-            get { return (bool)GetValue(GameOverProperty); }
-            set { SetValue(GameOverProperty, value); }
-        }
-        public static readonly DependencyProperty GameOverProperty =
-            DependencyProperty.Register("GameOver", typeof(bool), typeof(MainViewModel));
 
+        public GameTimer GameTime { get; set; }
+        public GameTimer BestTime { get; set; }
 
-
-        public Timer GameTimer { get; set; }
-
-
+        public GameTimer EasyBestTime { get; set; }
+        public GameTimer MediumBestTime { get; set; }
+        public GameTimer HardBestTime { get; set; }
+        public GameTimer CustomBestTime { get; set; }
+        
+            
         public int MineCount { get; set; }
 
         public bool MinesInitialized { get; set; }
+
+        public Window View { get; set; }
 
 
         // Commands
@@ -72,13 +72,21 @@ namespace Minesweeper.ViewModels
 
 
         // Constructors
-        public MainViewModel()
+        public MainViewModel(Window owner)
         {
             GameDifficulty = GameDifficulties.Medium.ToString();
 
+            View = owner;
+
             Matrix = new ObservableCollection<MatrixCell>();
             MineCellCordinates = new List<int>();
-            GameTimer = new Timer();
+
+            GameTime = new GameTimer();
+            BestTime = new GameTimer();
+            EasyBestTime = new GameTimer();
+            MediumBestTime = new GameTimer();
+            HardBestTime = new GameTimer();
+            CustomBestTime = new GameTimer();
 
             LeftClickCommand = new RelayCommand(LeftClickButton);
             RightClickCommand = new RelayCommand(RightClickButton);
@@ -89,7 +97,7 @@ namespace Minesweeper.ViewModels
                 var img = new PackIcon();
 
                 img.MinHeight = 30;
-                img.MinWidth = 50;
+                img.MinWidth = 60;
                 img.Foreground = Brushes.GhostWhite;
 
                 img.Kind = (SoundOff == true) ? PackIconKind.Music : PackIconKind.MusicOff;
@@ -115,7 +123,7 @@ namespace Minesweeper.ViewModels
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    color = (i + j) % 2 == 0 ? ColorService.GetColorFromString("#afdc55") : ColorService.GetColorFromString("#7c9e3d");
+                    color = (i + j) % 2 == 0 ? ColorService.GetColorFromString("#FFBAE86C") : ColorService.GetColorFromString("#FF9DC853");
                     Matrix.Add(new MatrixCell(i, j, color));
                 }
             }
@@ -155,8 +163,7 @@ namespace Minesweeper.ViewModels
             }
 
             MinesInitialized = false;
-            GameOver = false;
-            GameTimer.ResetTimer();
+            GameTime.StopTimer();
 
             Matrix.Clear();
             MineCellCordinates.Clear();
@@ -213,9 +220,16 @@ namespace Minesweeper.ViewModels
                         Matrix[item].IsEnable = false;
                     }
 
-                    GameOver = true;
-
                     if (!SoundOff) SoundService.PlaySoundFromThisPath(@"\Assets\Sounds\Explode.wav");
+
+                    GameTime.Timer.Stop();
+
+                    var gameOverDialog = new GameOverView(this);
+                    gameOverDialog.Owner = View;
+
+                    gameOverDialog.ShowDialog();
+
+                    return;
                 }
                 else
                 {
@@ -236,6 +250,57 @@ namespace Minesweeper.ViewModels
 
                     if (!SoundOff) SoundService.PlaySoundFromThisPath(@"\Assets\Sounds\Click.wav");
                 }
+            }
+
+            if (CheckWin())
+            {
+                GameTime.Timer.Stop();
+
+                if (GameDifficulty.ToString() == GameDifficulties.Easy.ToString())
+                {
+                    if (GameTime.Time.TotalSeconds < EasyBestTime.Time.TotalSeconds || EasyBestTime.Time.TotalSeconds == 0)
+                    {
+                        EasyBestTime.Time = TimeSpan.FromSeconds(GameTime.Time.TotalSeconds);
+                        EasyBestTime.ViewTime = GameTime.ViewTime;
+                    }
+
+                    BestTime = EasyBestTime;
+                }
+                else if (GameDifficulty.ToString() == GameDifficulties.Medium.ToString())
+                {
+                    if (GameTime.Time.TotalSeconds < MediumBestTime.Time.TotalSeconds || MediumBestTime.Time.TotalSeconds == 0)
+                    {
+                        MediumBestTime.Time = TimeSpan.FromSeconds(GameTime.Time.TotalSeconds);
+                        MediumBestTime.ViewTime = GameTime.ViewTime;
+                    }
+
+                    BestTime = MediumBestTime;
+                }
+                else if (GameDifficulty.ToString() == GameDifficulties.Hard.ToString())
+                {
+                    if (GameTime.Time.TotalSeconds < HardBestTime.Time.TotalSeconds || HardBestTime.Time.TotalSeconds == 0)
+                    {
+                        HardBestTime.Time = TimeSpan.FromSeconds(GameTime.Time.TotalSeconds);
+                        HardBestTime.ViewTime = GameTime.ViewTime;
+                    }
+
+                    BestTime = HardBestTime;
+                }
+                else if (GameDifficulty.ToString() == GameDifficulties.Custom.ToString())
+                {
+                    if (GameTime.Time.TotalSeconds < CustomBestTime.Time.TotalSeconds || CustomBestTime.Time.TotalSeconds == 0)
+                    {
+                        CustomBestTime.Time = TimeSpan.FromSeconds(GameTime.Time.TotalSeconds);
+                        CustomBestTime.ViewTime = GameTime.ViewTime;
+                    }
+
+                    BestTime = CustomBestTime;
+                }
+
+                var gameWinDialog = new GameWinView(this);
+                gameWinDialog.Owner = View;
+
+                gameWinDialog.ShowDialog();
             }
         }
 
@@ -269,7 +334,6 @@ namespace Minesweeper.ViewModels
                     MineCellCordinates.Add(result);
                 }
             }
-            MinesInitialized = true;
 
             // Calculate mine count
             for (int c = 0, startIndex = default; c < Rows * Columns; c++)
@@ -291,6 +355,9 @@ namespace Minesweeper.ViewModels
                     }
                 }
             }
+
+            MinesInitialized = true;
+            GameTime.StartTimer();
         }
         public void NextCell(int index)
         {
@@ -332,6 +399,14 @@ namespace Minesweeper.ViewModels
                     if (cell.MineCount == 0) NextCell(result);
                 }
             }
+        }
+
+        public bool CheckWin()
+        {
+            foreach (var item in Matrix)
+                if (item.Mode == MatrixCellMode.EmptyCell && item.IsEnable) return false;
+
+            return true;
         }
     }
 }

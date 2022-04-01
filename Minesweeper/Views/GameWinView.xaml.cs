@@ -3,17 +3,18 @@ using System.Windows.Input;
 
 namespace Minesweeper.Views
 {
-    public partial class MainView : Window
+    public partial class GameWinView : Window
     {
-        public MainView()
+        public GameWinView(object dataContext)
         {
             InitializeComponent();
 
-            DataContext = new ViewModels.MainViewModel(this);
+            DataContext = dataContext;
         }
 
 
-        private void CloseApp_ButtonClicked(object sender, RoutedEventArgs e) => Close();
+        private void CloseWindow_ButtonClicked(object sender, RoutedEventArgs e) => Close();
+
         private void WindowMove_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
     }
 }

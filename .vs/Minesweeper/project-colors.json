@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2dac749c-2740-4f46-95ba-6ae25d3dfc1a": {
+      "ProjectGuid": "2dac749c-2740-4f46-95ba-6ae25d3dfc1a",
+      "DisplayName": "Minesweeper",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

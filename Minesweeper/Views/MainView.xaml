@@ -22,7 +22,7 @@
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel MouseDown="WindowMove_MouseDown" Background="#FF64D615">
+            <DockPanel MouseDown="WindowMove_MouseDown" Background="#FF8ACA5D">
 
                 <ComboBox DockPanel.Dock="Left" HorizontalContentAlignment="Center" MinWidth="200" SelectedItem="{Binding GameDifficulty, Mode=OneWayToSource}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
@@ -50,7 +50,7 @@
                     <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
                         <materialDesign:PackIcon Kind="Refresh" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Click="CloseApplication_ButtonClicked">
+                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Click="CloseApp_ButtonClicked">
                         <materialDesign:PackIcon Kind="Close" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
                 </StackPanel>
@@ -59,13 +59,16 @@
                     <Image VerticalAlignment="Center" Source="/Views/Flag.png" Height="40" Width="50"/>
                     <TextBlock VerticalAlignment="Center" FontSize="24" Margin="10, 0, 0, 0" Foreground="GhostWhite" Text="{Binding FlagCount, Mode=TwoWay}"/>
                     <Image Margin="50, 0, 0, 0" VerticalAlignment="Center"  Source="/Views/Clock.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding GameTimer.ViewTime, Mode=TwoWay}"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding GameTime.ViewTime, Mode=TwoWay}"/>
                 </StackPanel>
 
             </DockPanel>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Matrix, Mode=TwoWay}" BorderThickness="1.45" BorderBrush="DimGray">
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Matrix, Mode=TwoWay}">
 
+                <ItemsControl.BorderThickness>1.5</ItemsControl.BorderThickness>
+                <ItemsControl.BorderBrush>DimGray</ItemsControl.BorderBrush>
+                
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Rows="{Binding Rows, Mode=TwoWay}" Columns="{Binding Columns, Mode=TwoWay}"/>
@@ -74,12 +77,14 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{Binding }" Content="{Binding Content}" Background="{Binding Background}" IsHitTestVisible="{Binding IsEnable, Mode=TwoWay}" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}">
+
+                        <Button Content="{Binding Content}" Background="{Binding Background}" IsHitTestVisible="{Binding IsEnable}" Style="{Binding Default}" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}">
                             <Button.InputBindings>
                                 <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.LeftClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}}" Gesture="LeftClick"/>
                                 <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.RightClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}}" Gesture="RightClick"/>
                             </Button.InputBindings>
                         </Button>
+                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 
