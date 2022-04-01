@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1Da9uZPrkeUK0XA1hsrohyllUNny8Ce0kWkAKt7tA5uViZaYIUL3UICShN6hmaYGFkD/xVaNA/s2zdhzUe6u1A==",
+  "dgSpecHash": "0NoNz5G/SMkrVJNlg4FuJrIoxH6aflR4VgagljgGx9hrV1j4zt+a2/l8zihiw8HIsIlAvngzCRy70g+dOafvCQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\Minesweeper.csproj",
+  "projectFilePath": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\materialdesigncolors\\2.0.5\\materialdesigncolors.2.0.5.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\materialdesignthemes\\4.4.0\\materialdesignthemes.4.4.0.nupkg.sha512",

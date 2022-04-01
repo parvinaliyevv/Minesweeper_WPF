@@ -90,6 +90,7 @@ namespace Minesweeper.ViewModels
 
                 img.MinHeight = 30;
                 img.MinWidth = 50;
+                img.Foreground = Brushes.GhostWhite;
 
                 img.Kind = (SoundOff == true) ? PackIconKind.Music : PackIconKind.MusicOff;
                 SoundService.StopAllSounds();

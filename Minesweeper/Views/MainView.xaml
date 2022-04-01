@@ -15,10 +15,6 @@
 
     <Grid>
 
-        <Popup Placement="Center" IsOpen="{Binding GameOver, Mode=TwoWay}">
-            <Button Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Content="Retry"/>
-        </Popup>
-
         <Grid>
 
             <Grid.RowDefinitions>
@@ -28,10 +24,11 @@
 
             <DockPanel MouseDown="WindowMove_MouseDown" Background="#FF64D615">
 
-                <ComboBox DockPanel.Dock="Left" SelectedItem="{Binding GameDifficulty, Mode=OneWayToSource}">
+                <ComboBox DockPanel.Dock="Left" HorizontalContentAlignment="Center" MinWidth="200" SelectedItem="{Binding GameDifficulty, Mode=OneWayToSource}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
                     <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
-                    <ComboBox.Margin>20 10 0 10</ComboBox.Margin>
+                    <ComboBox.Background>GhostWhite</ComboBox.Background>
+                    <ComboBox.Margin>20 0 0 0</ComboBox.Margin>
 
                     <ComboBoxItem Content="Easy"/>
                     <ComboBoxItem Content="Medium"/>
@@ -47,22 +44,22 @@
                 </ComboBox>
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 5, 0">
-                    <Button Height="auto" Width="auto" Margin="5" Command="{Binding SoundOffCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
-                        <materialDesign:PackIcon Kind="Music" MinHeight="30" MinWidth="50"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Command="{Binding SoundOffCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                        <materialDesign:PackIcon Kind="Music" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
-                    <Button Height="auto" Width="auto" Margin="5" Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
-                        <materialDesign:PackIcon Kind="Refresh" MinHeight="30" MinWidth="50"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                        <materialDesign:PackIcon Kind="Refresh" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
-                    <Button Height="auto" Width="auto" Margin="5" Click="CloseApplication_ButtonClicked">
-                        <materialDesign:PackIcon Kind="Close" MinHeight="30" MinWidth="50"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Click="CloseApplication_ButtonClicked">
+                        <materialDesign:PackIcon Kind="Close" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image VerticalAlignment="Center" Source="/Views/Flag.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center"  Text="{Binding FlagCount, Mode=TwoWay}"/>
-                    <Image Margin="30, 0, 0, 0" VerticalAlignment="Center"  Source="/Views/Clock.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding GameTimer.ViewTime, Mode=TwoWay}"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="10, 0, 0, 0" Foreground="GhostWhite" Text="{Binding FlagCount, Mode=TwoWay}"/>
+                    <Image Margin="50, 0, 0, 0" VerticalAlignment="Center"  Source="/Views/Clock.png" Height="40" Width="50"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding GameTimer.ViewTime, Mode=TwoWay}"/>
                 </StackPanel>
 
             </DockPanel>

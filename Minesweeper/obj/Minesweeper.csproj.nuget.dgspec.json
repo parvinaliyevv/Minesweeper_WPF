@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\Minesweeper.csproj": {}
+    "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\Minesweeper.csproj": {
+    "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\Minesweeper.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
         "projectName": "Minesweeper",
-        "projectPath": "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\Minesweeper.csproj",
+        "projectPath": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\source\\repos\\Minesweeper\\Minesweeper\\obj\\",
+        "outputPath": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
