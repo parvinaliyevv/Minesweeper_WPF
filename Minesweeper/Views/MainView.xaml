@@ -5,12 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="16"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="GhostWhite" TextElement.FontWeight="Regular" TextElement.FontSize="16" TextOptions.TextFormattingMode="Ideal" TextOptions.TextRenderingMode="Auto" FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Minesweeper" MinHeight="650" MinWidth="1200" WindowStyle="None" AllowsTransparency="True" Background="Transparent" mc:Ignorable="d">
 
     <Border CornerRadius="7" Background="#FF8ACA5D" MouseDown="WindowMove_MouseDown">
@@ -18,16 +13,19 @@
         <Grid Margin="5">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" MaxHeight="75"/>
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
 
             <DockPanel >
 
-                <ComboBox DockPanel.Dock="Left" Name="Difficulty" SelectedIndex="{Binding Game.Difficulty, Mode=OneWayToSource}" HorizontalContentAlignment="Center" MinWidth="200" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBox Name="Difficulty" SelectedIndex="{Binding Game.Difficulty, Mode=OneWayToSource}" Style="{StaticResource MaterialDesignOutlinedComboBox}" DockPanel.Dock="Left">
 
+                    <ComboBox.HorizontalContentAlignment>Center</ComboBox.HorizontalContentAlignment>
                     <ComboBox.Background>GhostWhite</ComboBox.Background>
+                    <ComboBox.Foreground>Black</ComboBox.Foreground>
                     <ComboBox.Margin>20 0 0 0</ComboBox.Margin>
+                    <ComboBox.MinWidth>200</ComboBox.MinWidth>
 
                     <ComboBoxItem Content="Easy"/>
                     <ComboBoxItem IsSelected="True" Content="Medium"/>
@@ -42,30 +40,45 @@
 
                 </ComboBox>
 
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0, 0, 5, 0">
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Command="{Binding SoundOffCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                <StackPanel DockPanel.Dock="Right">
+
+                    <StackPanel.Orientation>Horizontal</StackPanel.Orientation>
+                    <StackPanel.Margin>0, 0, 5, 0</StackPanel.Margin>
+
+                    <Button Height="auto" Width="auto" Margin="5" Command="{Binding SoundOffCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Style="{StaticResource MaterialDesignIconButton}">
                         <materialDesign:PackIcon Kind="Music" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                    
+                    <Button Height="auto" Width="auto" Margin="5" Command="{Binding ResetGameCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Style="{StaticResource MaterialDesignIconButton}">
                         <materialDesign:PackIcon Kind="Refresh" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Height="auto" Width="auto" Margin="5" Click="CloseApp_ButtonClicked">
+                    
+                    <Button Height="auto" Width="auto" Margin="5" Click="CloseApp_ButtonClicked" Style="{StaticResource MaterialDesignIconButton}">
                         <materialDesign:PackIcon Kind="Close" Foreground="GhostWhite" MinHeight="30" MinWidth="60"/>
                     </Button>
+                    
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image VerticalAlignment="Center" Source="/Views/Flag.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="10, 0, 0, 0" Foreground="GhostWhite" Text="{Binding Matrix.FlagCount, Mode=TwoWay}"/>
-                    <Image Margin="50, 0, 0, 0" VerticalAlignment="Center"  Source="/Views/Clock.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding Game.Time.ViewTime, Mode=TwoWay}"/>
+                <StackPanel>
+
+                    <StackPanel.VerticalAlignment>Center</StackPanel.VerticalAlignment>
+                    <StackPanel.HorizontalAlignment>Center</StackPanel.HorizontalAlignment>
+                    <StackPanel.Orientation>Horizontal</StackPanel.Orientation>
+
+                    <Image Source="/Views/Flag.png" VerticalAlignment="Center" Height="40" Width="50"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 30, 0" Text="{Binding Matrix.FlagCount, Mode=TwoWay}"/>
+
+                    <Image Source="/Views/Clock.png" VerticalAlignment="Center" Height="40" Width="50"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Text="{Binding Game.Time.ViewTime, Mode=TwoWay}"/>
+                
                 </StackPanel>
 
             </DockPanel>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Matrix.Cells, Mode=TwoWay}">
+            <ItemsControl ItemsSource="{Binding Matrix.Cells, Mode=TwoWay}" Grid.Row="1">
 
-                <ItemsControl.BorderThickness>2</ItemsControl.BorderThickness>
+                <ItemsControl.Padding>5</ItemsControl.Padding>
+                <ItemsControl.BorderThickness>2.5</ItemsControl.BorderThickness>
                 <ItemsControl.BorderBrush>#574841</ItemsControl.BorderBrush>
 
                 <ItemsControl.ItemsPanel>
@@ -77,11 +90,15 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <Button Content="{Binding Content}" Background="{Binding Background}" IsHitTestVisible="{Binding IsEnable}" Style="{Binding Default}" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}">
+                        <Button IsHitTestVisible="{Binding IsEnable}" Content="{Binding Content}" Background="{Binding Background}" BorderThickness="{Binding Background}" Height="{Binding Height}" FontSize="{Binding FontSize}" Style="{StaticResource MaterialDesignRaisedLightButton}" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}">
+
+                            <Button.Margin>2</Button.Margin>
+                            
                             <Button.InputBindings>
                                 <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.LeftClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}}" Gesture="LeftClick"/>
                                 <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.RightClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}}" Gesture="RightClick"/>
                             </Button.InputBindings>
+                            
                         </Button>
 
                     </DataTemplate>

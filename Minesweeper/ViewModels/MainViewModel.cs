@@ -24,6 +24,22 @@ namespace Minesweeper.ViewModels
         public static readonly DependencyProperty MatrixProperty =
             DependencyProperty.Register("Matrix", typeof(Models.Matrix), typeof(MainViewModel));
 
+        public int Height
+        {
+            get { return (int)GetValue(HeightProperty); }
+            set { SetValue(HeightProperty, value); }
+        }
+        public static readonly DependencyProperty HeightProperty =
+            DependencyProperty.Register("Height", typeof(int), typeof(MainViewModel));
+
+        public int FontSize
+        {
+            get { return (int)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
+        }
+        public static readonly DependencyProperty FontSizeProperty =
+            DependencyProperty.Register("FontSize", typeof(int), typeof(MainViewModel));
+
         public Window Owner { get; set; }
 
 
@@ -195,6 +211,9 @@ namespace Minesweeper.ViewModels
         {
             Matrix = new Models.Matrix(Database.GetMatrixTemplate(Game.Difficulty));
             MatrixService.FillMatrix(Matrix);
+
+            Height = ((int)Game.Difficulty + 1) * 20;
+            FontSize = 20 / ((int)Game.Difficulty + 1);
 
             Game.MinesInitialized = false;
             Game.Time.ResetTimer();

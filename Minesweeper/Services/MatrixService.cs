@@ -10,7 +10,7 @@ namespace Minesweeper.Services
         {
             matrix.Cells.Clear();
             
-            SolidColorBrush? evenColor = ColorService.GetColorFromHexCode("#FFBAE86C"), oddColor = ColorService.GetColorFromHexCode("#FF9DC853");
+            SolidColorBrush? evenColor = ColorService.GetColorFromHexCode("#BAE86C"), oddColor = ColorService.GetColorFromHexCode("#A2D149");
 
             for (int i = 0; i < matrix.Rows; i++)
             {
