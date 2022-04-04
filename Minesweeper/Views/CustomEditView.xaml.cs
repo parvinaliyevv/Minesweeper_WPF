@@ -3,17 +3,14 @@ using System.Windows.Input;
 
 namespace Minesweeper.Views
 {
-    public partial class GameOverView : Window
+    public partial class CustomEditView : Window
     {
-        public GameOverView(object dataContext)
+        public CustomEditView()
         {
             InitializeComponent();
 
-            DataContext = dataContext;
+            DataContext = new ViewModels.CustomEditViewModel() { View = this };
         }
-
-
-        private void CloseWindow_ButtonClicked(object sender, RoutedEventArgs e) => Close();
 
         private void WindowMove_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
     }

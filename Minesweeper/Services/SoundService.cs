@@ -12,7 +12,16 @@ namespace Minesweeper.Services
 
         public static void PlaySoundFromFullPath(string path)
         {
-            var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            Stream stream = null;
+
+            try
+            {
+                stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
 
             Sound.Stream = stream;
             Sound.Play();
@@ -22,7 +31,16 @@ namespace Minesweeper.Services
 
         public static void PlaySoundFromThisPath(string path)
         {
-            var stream = new FileStream(string.Format("{0}{1}", DirectoryService.GetProjectParentFolder(), path), FileMode.Open, FileAccess.Read);
+            Stream stream = null;
+
+            try
+            {
+                stream = new FileStream(string.Format("{0}{1}", DirectoryService.GetProjectParentFolder(), path), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
 
             Sound.Stream = stream;
             Sound.Play();

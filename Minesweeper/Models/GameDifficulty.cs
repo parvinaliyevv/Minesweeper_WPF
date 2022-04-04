@@ -1,6 +1,6 @@
 ﻿namespace Minesweeper.Models
 {
-    public enum GameDifficulties
+    public enum GameDifficulty
     {
         Easy,
         Medium,

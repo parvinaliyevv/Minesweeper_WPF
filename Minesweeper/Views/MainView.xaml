@@ -11,33 +11,32 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Minesweeper" MinHeight="600" MinWidth="800" WindowStyle="None" AllowsTransparency="True" mc:Ignorable="d">
+        Title="Minesweeper" MinHeight="650" MinWidth="1200" WindowStyle="None" AllowsTransparency="True" Background="Transparent" mc:Ignorable="d">
 
-    <Grid>
-
-        <Grid>
+    <Border CornerRadius="7" Background="#FF8ACA5D" MouseDown="WindowMove_MouseDown">
+        
+        <Grid Margin="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel MouseDown="WindowMove_MouseDown" Background="#FF8ACA5D">
+            <DockPanel >
 
-                <ComboBox DockPanel.Dock="Left" HorizontalContentAlignment="Center" MinWidth="200" SelectedItem="{Binding GameDifficulty, Mode=OneWayToSource}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBox DockPanel.Dock="Left" Name="Difficulty" SelectedIndex="{Binding Game.Difficulty, Mode=OneWayToSource}" HorizontalContentAlignment="Center" MinWidth="200" Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
-                    <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
                     <ComboBox.Background>GhostWhite</ComboBox.Background>
                     <ComboBox.Margin>20 0 0 0</ComboBox.Margin>
 
                     <ComboBoxItem Content="Easy"/>
-                    <ComboBoxItem Content="Medium"/>
+                    <ComboBoxItem IsSelected="True" Content="Medium"/>
                     <ComboBoxItem Content="Hard"/>
                     <ComboBoxItem Content="Custom"/>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding DifficultyChangedCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding DifficultyChangedCommand}" CommandParameter="{Binding ElementName=Difficulty}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
@@ -57,21 +56,21 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image VerticalAlignment="Center" Source="/Views/Flag.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="10, 0, 0, 0" Foreground="GhostWhite" Text="{Binding FlagCount, Mode=TwoWay}"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="10, 0, 0, 0" Foreground="GhostWhite" Text="{Binding Matrix.FlagCount, Mode=TwoWay}"/>
                     <Image Margin="50, 0, 0, 0" VerticalAlignment="Center"  Source="/Views/Clock.png" Height="40" Width="50"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding GameTime.ViewTime, Mode=TwoWay}"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="24" Margin="5, 0, 0, 0" Foreground="GhostWhite" Text="{Binding Game.Time.ViewTime, Mode=TwoWay}"/>
                 </StackPanel>
 
             </DockPanel>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Matrix, Mode=TwoWay}">
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Matrix.Cells, Mode=TwoWay}">
 
-                <ItemsControl.BorderThickness>1.5</ItemsControl.BorderThickness>
-                <ItemsControl.BorderBrush>DimGray</ItemsControl.BorderBrush>
-                
+                <ItemsControl.BorderThickness>2</ItemsControl.BorderThickness>
+                <ItemsControl.BorderBrush>#574841</ItemsControl.BorderBrush>
+
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Rows="{Binding Rows, Mode=TwoWay}" Columns="{Binding Columns, Mode=TwoWay}"/>
+                        <UniformGrid Rows="{Binding Matrix.Rows, Mode=TwoWay}" Columns="{Binding Matrix.Columns, Mode=TwoWay}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -84,14 +83,14 @@
                                 <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.RightClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}}" Gesture="RightClick"/>
                             </Button.InputBindings>
                         </Button>
-                        
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 
             </ItemsControl>
 
         </Grid>
-
-    </Grid>
+        
+    </Border>
 
 </Window>

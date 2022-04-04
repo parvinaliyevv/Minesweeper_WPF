@@ -16,7 +16,7 @@ namespace Minesweeper.Services
 
         public static ImageSource? GetImageFromThisPath(string path)
         {
-            var image = Converter.ConvertFromString(string.Format("{0}{1}", DirectoryService.GetProjectParentFolder(),  path)) as ImageSource;
+            var image = Converter.ConvertFromString(string.Format("{0}{1}", DirectoryService.GetProjectParentFolder(), path)) as ImageSource;
 
             return image;
         }

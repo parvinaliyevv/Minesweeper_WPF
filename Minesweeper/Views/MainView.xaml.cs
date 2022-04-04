@@ -9,11 +9,14 @@ namespace Minesweeper.Views
         {
             InitializeComponent();
 
-            DataContext = new ViewModels.MainViewModel(this);
+            DataContext = new ViewModels.MainViewModel(){ Owner = this };
         }
 
 
         private void CloseApp_ButtonClicked(object sender, RoutedEventArgs e) => Close();
-        private void WindowMove_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private void WindowMove_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left) DragMove();
+        }
     }
 }

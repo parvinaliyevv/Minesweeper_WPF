@@ -9,6 +9,6 @@ namespace Minesweeper.Services
 
         public static void SetSeed(int seed) => Random = new(seed);
 
-        public static int GetRandomNumber(int min = 1, int max = int.MaxValue) => Random.Next(min, max);
+        public static int GetRandomNumber(int min = 0, int max = int.MaxValue) => Random.Next(min, max);
     }
 }

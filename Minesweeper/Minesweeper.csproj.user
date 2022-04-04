@@ -7,24 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\GameWinView.xaml.cs">
+    <Compile Update="Views\CustomEditView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\GameOverView.xaml.cs">
+    <Compile Update="Views\OverView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\GameWinView.xaml">
+    <Page Update="Views\CustomEditView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\GameOverView.xaml">
+    <Page Update="Views\OverView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

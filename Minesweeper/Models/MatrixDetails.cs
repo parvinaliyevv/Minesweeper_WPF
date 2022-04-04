@@ -5,17 +5,17 @@ using System.Runtime.CompilerServices;
 
 namespace Minesweeper.Models
 {
-    public class MatrixCell : INotifyPropertyChanged
+    public class MatrixDetails : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-
-        public MatrixCellMode Mode { get; set; }
-        public int MineCount { get; set; }
-        public bool HasFlag { get; set; }
-
         public int Row { get; set; }
         public int Column { get; set; }
+
+        public MatrixCellMode Mode { get; set; }
+
+        public bool HasFlag { get; set; }
+        public int MineCount { get; set; }
 
 
         private bool _isEnable;
@@ -28,7 +28,7 @@ namespace Minesweeper.Models
         private UIElement? _content;
         public UIElement? Content
         {
-            get { return _content; }
+            get => _content; 
             set { _content = value; OnPropertyChanged(); }
         }
 
@@ -40,19 +40,19 @@ namespace Minesweeper.Models
         }
 
 
-        public MatrixCell(int row, int column, SolidColorBrush color)
+        public MatrixDetails(int row, int column, SolidColorBrush color)
         {
             Row = row;
             Column = column;
-            Background = color;
 
             Mode = MatrixCellMode.EmptyCell;
-            MineCount = -1;
 
-            Content = null;
-            
-            IsEnable = true;
             HasFlag = false;
+            MineCount = -1;
+            
+            _isEnable = true;
+            _content = null;
+            _background = color;
         }
 
 
