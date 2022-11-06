@@ -1,24 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {}
+    "C:\\Users\\HP\\Desktop\\New folder\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {
+    "C:\\Users\\HP\\Desktop\\New folder\\WPF-Exam\\Minesweeper\\Minesweeper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\New folder\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
         "projectName": "Minesweeper",
-        "projectPath": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
+        "projectPath": "C:\\Users\\HP\\Desktop\\New folder\\WPF-Exam\\Minesweeper\\Minesweeper.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\source\\repos\\WPF-Exam\\Minesweeper\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\New folder\\WPF-Exam\\Minesweeper\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0-windows7.0"
+          "net5.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -59,7 +63,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -71,7 +76,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
